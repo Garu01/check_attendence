@@ -21,8 +21,6 @@ def image_capture():
 
 
 def image_detector():
-
-
     # Create the array of the right shape to feed into the keras model
     # The 'length' or number of images you can put into the array is
     # determined by the first position in the shape tuple, in this case 1.
@@ -69,19 +67,16 @@ def image_detector():
         file = open("labels.txt", encoding="utf-8")
         data = file.read().split("\n")
         print("AI result : ", data[max_index])
-        client.publish("AI", data[max_index])
+        #client.publish("AI", data[max_index])
     else :
         print(" Can not detect")
 
 
-
-
-
-client =MQTTClient("KhoaGaru","aio_qskJ87niqo1Q99iBPx9yTHH0ond8")
+"""client =MQTTClient("KhoaGaru","aio_qskJ87niqo1Q99iBPx9yTHH0ond8")
 
 
 client.connect()
-client.loop_background()
+client.loop_background()"""
 
 arr = [0,0,0]
 file = open("labels.txt", encoding="utf-8")
@@ -92,9 +87,12 @@ date = datetime.date.today()
 wb.create_sheet(str(date))
 sheets = wb.sheetnames
 sheet_today = wb[str(date)]
+sheet_today.cell(row=1,column=1).value = 'name'
+sheet_today.cell(row=1,column=2).value = 'check'
+
 for i in range(0,3):
-    sheet_today.cell(row=i+1, column=1).value = data[i]
-    sheet_today.cell(row=i+1, column=2).value = 0
+    sheet_today.cell(row=i+2, column=1).value = data[i]
+    sheet_today.cell(row=i+2, column=2).value = 0
 
 wb.save('hello.xlsx')
 
@@ -110,7 +108,7 @@ while True:
         if arr[max_index] == 3 :
 
             
-            sheet_today.cell(row=max_index+1, column=2).value = 1
+            sheet_today.cell(row=max_index+2, column=2).value = 1
             wb.save("hello.xlsx")
 
 
