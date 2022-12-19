@@ -28,11 +28,11 @@ def query():
 
         data = pd.read_excel('hello.xlsx',sheet_name=sheet_name)
 
-        get_name = data['name'].dropna()
+        get_name = data['Name'].dropna()
         set_name = get_name.value_counts().sort_index().index.tolist()
         set_name = list(map(str, set_name))
 
-        get_check = data['check'].dropna()
+        get_check = data['Check'].dropna()
         set_check = get_check.values.tolist()
         set_check = list(map(str, set_check))
 
@@ -57,7 +57,7 @@ def graph():
         data = pd.read_excel('hello.xlsx',sheet_name=sheet_name)
 
         #get value from check column
-        get_check_value = data['check'].dropna()
+        get_check_value = data['Check'].dropna()
 
         plt.figure(figsize=(15, 5))
         check_value= get_check_value.value_counts().sort_index().index.tolist()
