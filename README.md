@@ -7,7 +7,7 @@
       - [Step 1](#step-1)
       - [Step 2](#step-2)
       - [Step 3](#step-3)
-  - [Contact us](#contact-us)
+  - [Contributor](#contact-us)
 ## Tutorial 
 ### Requirement 
 1. Python 3.10 or higher
@@ -44,7 +44,7 @@ And this how it looks like :
 ![show](image_readme/result.png) 
 
 
-## Contact us 
+## Contributor 
 - [Đăng Khoa](https://www.facebook.com/seville.alvin)
 - [Tuấn Khoa](https://www.facebook.com/phamphu.tuankhoa.1)
 - [Huy Hoàng](https://www.facebook.com/huyhoang.nguyenmac)
