@@ -2,23 +2,17 @@ from keras.models import load_model
 from PIL import Image, ImageOps
 import numpy as np
 import cv2
-from Adafruit_IO import MQTTClient
-import xlsxwriter
-import datetime
-from openpyxl import workbook
 from openpyxl import load_workbook
 import datetime
 import time
 
-
-cam = cv2.VideoCapture(0)
 # Load the model
 model = load_model('keras_model.h5')
 
 def image_capture():
+    cam=cv2.VideoCapture(0)
     ret,frame = cam.read()
     cv2.imwrite("test.png",frame)
-
 
 def image_detector():
     # Create the array of the right shape to feed into the keras model
@@ -47,7 +41,6 @@ def image_detector():
     # get the 1D array
     # prediction dang la [[... ... ...]]
     output = prediction[0]
-
     # assign default value for max confidence
     global max_index
     max_index = -1
@@ -56,8 +49,6 @@ def image_detector():
 
     # find the maximum confidence and its index
     for i in range(0, len(output)):
-        """if max_confidence < output[i]:
-            max_confidence = output[i]"""
         if output[i] > 0.9 :
             max_confidence = output[i]
             max_index = i
@@ -67,54 +58,41 @@ def image_detector():
         file = open("labels.txt", encoding="utf-8")
         data = file.read().split("\n")
         print("AI result : ", data[max_index])
-        #client.publish("AI", data[max_index])
     else :
         print(" Can not detect")
 
 
-"""client =MQTTClient("KhoaGaru","aio_qskJ87niqo1Q99iBPx9yTHH0ond8")
 
-
-client.connect()
-client.loop_background()"""
-
-arr = [0,0,0]
 file = open("labels.txt", encoding="utf-8")
 data = file.read().split("\n")
 global max_index
+
+
+arr = [0,0,0,0,0,0]
+#connect to xlsx file, setup name each sheet
 wb = load_workbook("hello.xlsx")
 date = datetime.date.today()
 wb.create_sheet(str(date))
 sheets = wb.sheetnames
 sheet_today = wb[str(date)]
-sheet_today.cell(row=1,column=1).value = 'name'
-sheet_today.cell(row=1,column=2).value = 'check'
-
+sheet_today.cell(row=1,column=1).value = 'Name'
+sheet_today.cell(row=1,column=2).value = 'Check'
 for i in range(0,3):
     sheet_today.cell(row=i+2, column=1).value = data[i]
     sheet_today.cell(row=i+2, column=2).value = 0
-
 wb.save('hello.xlsx')
 
 while True:
-    time.sleep(5)
+    #capture image each 3 seconds
+    time.sleep(3)
     image_capture()
     image_detector()
     if(max_index != -1) :
-
-
         arr[max_index] +=1
-
-        if arr[max_index] == 3 :
-
-            
+        if arr[max_index] >= 3 :
             sheet_today.cell(row=max_index+2, column=2).value = 1
             wb.save("hello.xlsx")
-
-
-
             print(data[max_index] + " has been attended! ")
-
 workbook.close()
 
 
