@@ -29,19 +29,19 @@ Download our code from github
 #### Step 2
 Upload image you want to train to [Google Teachable Machine](https://teachablemachine.withgoogle.com/) and train them, then download that model to your PC.
 
-![example](keras_model.png)
+![example](image_readme/keras_model.png)
 
 #### Step 3 
 Run it and enjoy the show.
 This is how the GUI looks like :
-![gui](gui.png)
+![gui](image_readme/gui.png)
 
 After a trained data stored in excel file, you can choose date to perform.
 Click Show record to show all names with 0 or 1. 
 0 means absent and 1 is opposite.
 Click Show graph to show a bar graph. 
 And this how it looks like :
-![show](result.png) 
+![show](image_readme/result.png) 
 
 
 ## Contact us 
