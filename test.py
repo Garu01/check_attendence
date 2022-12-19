@@ -77,7 +77,7 @@ sheets = wb.sheetnames
 sheet_today = wb[str(date)]
 sheet_today.cell(row=1,column=1).value = 'Name'
 sheet_today.cell(row=1,column=2).value = 'Check'
-for i in range(0,3):
+for i in range(0,len(arr)):
     sheet_today.cell(row=i+2, column=1).value = data[i]
     sheet_today.cell(row=i+2, column=2).value = 0
 wb.save('hello.xlsx')
